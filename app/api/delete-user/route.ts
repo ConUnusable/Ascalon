@@ -1,0 +1,15 @@
+export const runtime = 'nodejs';
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
+export async function POST(req: Request) {
+  const data = await req.json();
+
+  const delUser = await prisma.user.delete({
+    where : {
+        UserId : data.UserId 
+    }
+  });
+
+  return new Response(JSON.stringify(data), { status: 201 });
+}
